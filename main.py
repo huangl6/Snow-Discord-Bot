@@ -3,6 +3,7 @@ import requests
 import json
 from forecast import *
 from config import token, api_key
+from processJson import processJson
 
 # token = 'DISCORD_BOT_TOKEN'
 # api_key = 'OPEN_WEATHER_MAP_API_KEY'
@@ -53,7 +54,7 @@ async def on_message(message):
                         with open('sample_forecast.json', 'w') as outfile:
                             json.dump(data, outfile)
                         print('loaded data!')
-                        await message.channel.send(embed=weather_message(data, location))
+                        await message.channel.send(embed=weather_message(data, mtn))
                     except:
                         await message.channel.send(embed=error_message(resort))
                     break

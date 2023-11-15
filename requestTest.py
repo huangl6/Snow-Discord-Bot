@@ -1,7 +1,6 @@
 import requests
 import json
-
-api_key = 'df47b7f47b781635a2176e4c40b62bde'
+from config import api_key
 
 resorts = {'Mammoth Mountain': (['mammoth', 'mammy'], ['37.628989532560425', '-119.0309197485682']), 'Palisades': (['Squaw', 'Squaw Valley', 'Alpine Meadows', 'Olympic Valley']), 'Whistler Blackcomb': (['Whistler']),
 'Alta-Snowbird': (['Alta', 'Snowbird']), 'Park City': (['Park City']), 'Steamboat Springs': (['Steamboat']), 'Big Bear Mountain': (['Big Bear', 'Bear', 'Snow Valley']),
