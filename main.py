@@ -4,7 +4,7 @@ import json
 from forecast import *
 
 # token = 'DISCORD_BOT_TOKEN'
-token = 'MTE3MjM3OTU3MDI3MjQ3NzI1NQ.GyZMBk.axDrZacsYKNBZyDArHkzb9XIqS1cHIKMAHUCYw'
+token = 'MTE3MjM3OTU3MDI3MjQ3NzI1NQ.GA4Ptl._BhmnoL7tYbSr95jEgNV4he2yyN7f8W-Zf7iA4'
 # api_key = 'OPEN_WEATHER_MAP_API_KEY'
 api_key = 'df47b7f47b781635a2176e4c40b62bde'
 
