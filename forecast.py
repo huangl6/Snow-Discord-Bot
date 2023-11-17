@@ -1,4 +1,6 @@
 import discord
+import json
+import requests
 
 color = 0xFF6500
 key_features = {
@@ -31,7 +33,7 @@ def weather_message(data, location):
         )
     return message
 
-def get_forecast(url):
+def get_data(url):
     r = json.loads(requests.get(url).content)
     return r
 

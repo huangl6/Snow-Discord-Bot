@@ -4,6 +4,7 @@ import json
 from forecast import *
 from config import token, api_key
 from processJson import processJson
+from discord.ext import tasks
 
 # token = 'DISCORD_BOT_TOKEN'
 # api_key = 'OPEN_WEATHER_MAP_API_KEY'
@@ -22,6 +23,7 @@ resorts = {'Mammoth Mountain': (['mammoth', 'mammy'], ['37.628989532560425', '-1
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='w.[location]'))
+    loop_forecast.start()
 
 @client.event
 async def on_message(message):
@@ -48,7 +50,7 @@ async def on_message(message):
                     print(url)
                     try:
                         print('retrieving data')
-                        data = get_forecast(url)
+                        data = get_data(url)
                         print(data)
                         print('retrieved data')
                         with open('sample_forecast.json', 'w') as outfile:
@@ -60,6 +62,49 @@ async def on_message(message):
                     break
                 else:
                     print(resort_input)
+
+def forecast():
+    lat, long = resorts['Mammoth Mountain'][1]
+    url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={long}&appid={api_key}'
+    print('retrieving data')
+    data = get_data(url)
+    # print(data)
+    print('retrieved data')
+    snow = processJson(data)
+    print(snow)
+    print('processed data')
+    for i in snow:
+        print(snow[i])
+
+
+@tasks.loop(seconds=20)
+async def loop_forecast():
+    lat, long = resorts['Mammoth Mountain'][1]
+    url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={long}&appid={api_key}'
+    print('retrieving data')
+    data = get_data(url)
+    # print(data)
+    print('retrieved data')
+    snow = processJson(data)
+    print(snow)
+    print('processed data')
+    totalSnow = 0
+    counter = 0
+    for i in snow:
+        if counter == 3:
+            break
+        print(i)
+        totalSnow += snow[i]
+    if totalSnow >= 5:
+        #bot sends snow alert
+        try:
+            await client.wait_until_ready()
+            channel = client.get_channel(1172379336620384360)
+            await channel.send(totalSnow)
+        except discord.errors.Forbidden:
+            return
+
+
 
 
 client.run(token)

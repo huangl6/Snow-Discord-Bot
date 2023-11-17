@@ -22,10 +22,10 @@ def processJson(data):
             snowfall[date] = 0
         if i['weather'][0]['main'] == 'Snow':
             snow = i['snow']['3h']
-            print(date, snow)
+            # print(date, snow)
             snowfall[date] += snow
         else:
             snowfall[date] += snow
 
-    print(snowfall)
+    # print(snowfall)
     return snowfall
